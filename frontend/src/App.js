@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useRoutes } from "react-router-dom";
+import Root from "./Root";
 import Home from "./components/Home";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
@@ -9,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <BrowserRouter>
+        <Root>
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
@@ -20,7 +21,7 @@ class App extends Component {
               element={<Navigate to='/' />}
             />
           </Routes>
-        </BrowserRouter>
+        </Root>
       </div>
     );
   }
