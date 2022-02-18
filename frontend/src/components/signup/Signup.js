@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   Container,
   Button,
@@ -8,6 +10,7 @@ import {
   Form,
   FormControl
 } from "react-bootstrap";
+import { signupNewUser } from "./SignupActions";
 
 class Signup extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ class Signup extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log("Sign up " + userData.username + " " + userData.password);
+    this.props.signupNewUser(userData);
   };
 
   render() {
@@ -74,4 +77,15 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+Signup.propTypes = {
+  signupNewUser: PropTypes.func.isRequired,
+  createUser: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  createUser: state.createUser
+});
+
+export default connect(mapStateToProps, {
+  signupNewUser
+})(Signup);

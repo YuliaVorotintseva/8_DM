@@ -8,6 +8,9 @@ import {
   Form,
   FormControl
 } from "react-bootstrap";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "./LoginActions.js";
 
 class Login extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log("Login " + userData.username + " " + userData.password);
+    this.props.login(userData, "/dashboard");
   };
   render() {
     return (
@@ -70,4 +73,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, {
+  login
+})(Login);
